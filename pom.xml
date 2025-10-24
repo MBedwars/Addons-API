@@ -11,7 +11,7 @@
   <properties>
     <version.cosmetics>1.4.1</version.cosmetics>
     <version.lvlshop>2.2</version.lvlshop>
-    <version.tweaks>4.5.1</version.tweaks>
+    <version.tweaks>4.6.0-Beta1</version.tweaks>
     <version.extraspecialitems>3.1.1</version.extraspecialitems>
     <version.privategames>3.0.5</version.privategames>
 
@@ -49,8 +49,8 @@
       <version>${version.lvlshop}</version>
     </dependency>
     <dependency>
-      <groupId>me.metallicgoat</groupId>
-      <artifactId>MBedwarsTweaks</artifactId>
+      <groupId>me.metallicgoat.tweaksaddon</groupId>
+      <artifactId>API</artifactId>
       <version>${version.tweaks}</version>
     </dependency>
     <dependency>
@@ -132,13 +132,17 @@
           <execution>
             <id>filter-overview</id>
             <phase>generate-resources</phase>
-            <goals><goal>copy-resources</goal></goals>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
             <configuration>
               <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/javadoc</directory>
-                  <includes><include>overview.html</include></includes>
+                  <includes>
+                    <include>overview.html</include>
+                  </includes>
                   <filtering>true</filtering>
                 </resource>
               </resources>
