@@ -15,6 +15,11 @@
     <version.extraspecialitems>LATEST</version.extraspecialitems>
     <version.privategames>LATEST</version.privategames>
 
+    <!-- Note when adding new dependencies:
+    Also update the includes-tags in the bottom,
+    It exists 2x !!!
+    -->
+
     <version.mbedwars>LATEST</version.mbedwars>
     <version.spigot-api>LATEST</version.spigot-api>
 
@@ -84,7 +89,6 @@
             <filter>
               <artifact>*:*</artifact>
               <includes>
-                <artifact>*:*</artifact>
                 <include>de/marcely/bedwars/api/**</include>
                 <include>me/metallicgoat/*/api/**</include>
                 <include>me/harsh/*/api/**</include>
@@ -105,6 +109,7 @@
         </executions>
       </plugin>
 
+      <!-- date as version placeholder -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -125,6 +130,7 @@
         </executions>
       </plugin>
 
+      <!-- replace version placeholders in overview -->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.3.1</version>
@@ -159,6 +165,7 @@
         </executions>
       </plugin>
 
+      <!-- javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -201,6 +208,55 @@
         </executions>
       </plugin>
 
+      <!-- generate sources folder from dependencies' sources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <id>unpack-sources</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <classifier>sources</classifier>
+              <outputDirectory>${project.build.directory}/sources</outputDirectory>
+              <includes>
+                de/marcely/bedwars/api/**,
+                me/metallicgoat/*/api/**,
+                me/harsh/*/api/**,
+                META-INF/*,
+                META-INF/versions/**,
+                META-INF/maven/de.marcely.bedwars/Addons-API/**
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- create jar from sources folder -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>package-sources-folder</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classesDirectory>${project.build.directory}/sources</classesDirectory>
+              <classifier>sources</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
         <version>${version.maven-clean}</version>
@@ -210,21 +266,6 @@
             <phase>install</phase>
             <goals>
               <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${version.maven-source}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
             </goals>
           </execution>
         </executions>
