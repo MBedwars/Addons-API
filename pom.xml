@@ -9,14 +9,14 @@
   <version>Build-${date}</version>
 
   <properties>
-    <version.cosmetics>1.4.1</version.cosmetics>
-    <version.lvlshop>2.2</version.lvlshop>
-    <version.tweaks>4.6.0-Beta1</version.tweaks>
-    <version.extraspecialitems>3.1.1</version.extraspecialitems>
-    <version.privategames>3.0.5</version.privategames>
+    <version.cosmetics>LATEST</version.cosmetics>
+    <version.lvlshop>LATEST</version.lvlshop>
+    <version.tweaks>LATEST</version.tweaks>
+    <version.extraspecialitems>LATEST</version.extraspecialitems>
+    <version.privategames>LATEST</version.privategames>
 
-    <version.mbedwars>5.5.5</version.mbedwars>
-    <version.spigot-api>1.21.10-R0.1-SNAPSHOT</version.spigot-api>
+    <version.mbedwars>LATEST</version.mbedwars>
+    <version.spigot-api>LATEST</version.spigot-api>
 
     <version.lombok>1.18.42</version.lombok>
     <version.maven-shade>3.6.1</version.maven-shade>
